@@ -3,11 +3,13 @@
 module Hashid
   module Rails
     class Configuration
-      attr_accessor :salt,
+      attr_accessor :alphabet,
+                    :hashid_prefix_separator,
                     :min_hash_length,
-                    :alphabet,
                     :override_find,
-                    :sign_hashids
+                    :salt,
+                    :sign_hashids,
+                    :use_prefix
 
       def initialize
         @salt = ""
@@ -17,6 +19,8 @@ module Hashid
                     "1234567890"
         @override_find = true
         @sign_hashids = true
+        @use_prefix = true
+        @hashid_prefix_separator = "!"
       end
 
       def for_table(table_name)

@@ -94,15 +94,15 @@ module Hashid
 
       def hashid_encode(id)
         if Hashid::Rails.configuration.sign_hashids
-          hashids.encode(HASHID_TOKEN, id)
+          find_hashid_prefix + hashids.encode(HASHID_TOKEN, id)
         else
-          hashids.encode(id)
+          find_hashid_prefix + hashids.encode(id)
         end
       end
 
       def hashid_decode(id, fallback:)
         fallback_value = fallback ? id : nil
-        decoded_hashid = hashids.decode(id.to_s)
+        decoded_hashid = hashids.decode(id_to_string(id))
 
         if Hashid::Rails.configuration.sign_hashids
           valid_hashid?(decoded_hashid) ? decoded_hashid.last : fallback_value
@@ -111,6 +111,22 @@ module Hashid
         end
       rescue Hashids::InputError
         fallback_value
+      end
+
+      def id_to_string(id)
+        safe_id = id.to_s
+        return safe_id unless Hashid::Rails.configuration.use_prefix
+        return safe_id unless safe_id.start_with?(find_hashid_prefix)
+
+        safe_id[find_hashid_prefix.length..safe_id.length]
+      end
+
+      def find_hashid_prefix
+        if Hashid::Rails.configuration.use_prefix && respond_to?(:hashid_prefix)
+          "#{hashid_prefix}#{Hashid::Rails.configuration.hashid_prefix_separator}"
+        else
+          ""
+        end
       end
 
       def valid_hashid?(decoded_hashid)

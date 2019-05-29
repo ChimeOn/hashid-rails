@@ -5,6 +5,17 @@ require "spec_helper"
 describe Hashid::Rails do
   before(:each) { Hashid::Rails.reset }
 
+  describe "#hashid with prefixes" do
+    it "returns model ID encoded as hashid when with prefixes" do
+      model = FakeModelWithPrefix.new(id: 100_117)
+      expect(model.hashid).to eq("FMP!3KiOYjm")
+    end
+
+    it "decodes the hashid properly" do
+      expect(FakeModelWithPrefix.decode_id("FMP!3KiOYjm")).to eq(100_117)
+    end
+  end
+
   describe "#hashid" do
     it "returns model ID encoded as hashid" do
       model = FakeModel.new(id: 100_117)

@@ -5,12 +5,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "hashid/rails/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "hashid-rails"
+  spec.name          = "chimeon-hashid-rails"
   spec.version       = Hashid::Rails::VERSION
-  spec.authors       = ["Justin Cypret"]
-  spec.email         = ["jcypret@gmail.com"]
+  spec.authors       = ["Team ChimeOn"]
+  spec.email         = ["support@chimeon.com"]
 
-  spec.summary       = "Use Hashids in your Rails app models."
+  spec.summary       = "Fork of Justin Cypret work. Use Hashids in your Rails app models."
   spec.description   = <<-DESCRIPTION
     This gem allows you to easily use [Hashids](http://hashids.org/ruby/)
     in your Rails app. Instead of your models using sequential numbers like 1,
@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
   DESCRIPTION
   spec.homepage      = "https://github.com/jcypret/hashid-rails"
   spec.license       = "MIT"
-
   spec.files         = `git ls-files -z`
                        .split("\x0")
                        .reject { |f| f.match(%r{^(test|spec|features)/}) }

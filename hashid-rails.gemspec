@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "hashid/rails/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "chimeon-hashid-rails"
+  spec.name          = "hashid-rails"
   spec.version       = Hashid::Rails::VERSION
   spec.authors       = ["Team ChimeOn"]
   spec.email         = ["support@chimeon.com"]
